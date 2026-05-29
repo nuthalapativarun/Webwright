@@ -8,7 +8,7 @@ import typer
 from rich.console import Console
 
 from webwright.agents import get_agent
-from webwright.config import get_config_from_spec, snapshot_config_specs
+from webwright.config import builtin_config_dir, get_config_from_spec, snapshot_config_specs
 from webwright.environments import get_environment
 from webwright.models import get_model
 from webwright.utils.serialize import UNSET, recursive_merge
@@ -132,6 +132,17 @@ def run_one(
     if run_exception is not None:
         raise run_exception
     return result
+
+
+@app.command("list-configs")
+def list_configs() -> None:
+    """List all available built-in config files."""
+    configs = sorted(builtin_config_dir.glob("*.yaml"))
+    if not configs:
+        console.print("No config files found.")
+        return
+    for path in configs:
+        console.print(path.name)
 
 
 @app.command()
