@@ -170,14 +170,14 @@ python assets/task_showcase/app.py \
 ### Prerequisites
 
 - Python 3.10+
-- Chromium installed through Playwright
+- Playwright browser installed (Chromium for standalone mode; Firefox when using the Claude Code skill)
 - An API key for your chosen backend (OpenAI, Anthropic, or OpenRouter)
 
 ### Install
 
 ```bash
 pip install -e .
-playwright install chromium
+playwright install chromium  # or: playwright install firefox (for Claude Code skill mode)
 ```
 
 ### Run
