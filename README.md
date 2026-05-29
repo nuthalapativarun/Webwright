@@ -84,6 +84,20 @@ https://github.com/user-attachments/assets/4ed94cd5-11be-4daa-b2d7-1260a803baca
 
 ---
 
+## ⚡ 30-second start
+
+```bash
+pip install -e .
+playwright install chromium
+export OPENAI_API_KEY=sk-...   # or ANTHROPIC_API_KEY / OPENROUTER_API_KEY
+python -m webwright.run.cli -c base.yaml -c model_openai.yaml \
+  -t "Go to github.com and find the trending repos"
+```
+
+> New here? Jump straight to [Quick Start](#-quick-start) for the full setup guide.
+
+---
+
 ## 📊 Performance
 
 State-of-the-art on two real-website benchmarks with a 100-step budget — see the [blog post](https://www.microsoft.com/en-us/research/articles/webwright-a-terminal-is-all-you-need-for-web-agents/) for full details.
