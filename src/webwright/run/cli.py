@@ -17,7 +17,7 @@ from webwright.run.doctor import run_doctor
 
 DEFAULT_CONFIGS = ["base.yaml", "model_openai.yaml"]
 
-app = typer.Typer(no_args_is_help=True)
+app = typer.Typer()
 console = Console(highlight=False)
 
 
@@ -145,10 +145,11 @@ def list_configs() -> None:
         console.print(path.name)
 
 
-@app.command()
+@app.callback(invoke_without_command=True)
 def main(
-    task: str = typer.Option(
-        ..., "-t", "--task", help="Natural language task description."
+    ctx: typer.Context,
+    task: str | None = typer.Option(
+        None, "-t", "--task", help="Natural language task description."
     ),
     task_id: str | None = typer.Option(
         None, "--task-id", help="Optional identifier used in the output directory name."
@@ -164,6 +165,11 @@ def main(
         help="Launch headed local Playwright with devtools and keep it open for inspection.",
     ),
 ) -> Any:
+    if ctx.invoked_subcommand is not None:
+        return
+    if task is None:
+        console.print(ctx.get_help())
+        raise typer.Exit()
     return run_one(
         task=task,
         task_id=task_id,
